@@ -1,1 +1,29 @@
+Requirements :
+
+- The App should have both Front-end and Back-end components
+- The App must be able to perform CRUD operation on students records
+- The App should contain an Admin View
+- The App should allow the Admin to manage students and perform the following functionalities:
+   -> Create a new student record
+   -> Retrieve a list of all students
+   -> Retrieve details of any student using their ID
+   -> Update info of any student
+   -> Delete any student record 
+ - The App should ve implement using RESTful APIs
+ - The App should respond with data of type Json
+
+Technologies :
+
+- Visual Studio code to develop code
+- GIT for CI/CD
+- Java Spring-Boot for Back end 
+- React.js for front-end 
+- SQL database to store students records
+- Hibernate for ORM 
+- JWT (JSON Web Tokens) for authentication and authorization 
+- Spring interceptor for middleware
+
+Architecture and design :
+
+
 
