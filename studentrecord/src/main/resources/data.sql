@@ -1,2 +1,10 @@
-insert into student values(10001,'Ranga', 'E1234567');
-insert into student values(10002,'Ravi', 'A1234568');
+INSERT INTO student (id, name, dateofbirth)
+SELECT * FROM (
+    SELECT 10009 AS id, 'Ranga' AS name, 'E1234567' AS dateofbirth
+    UNION ALL
+    SELECT 10001 AS id, 'Ravi' AS name, 'A1234568' AS dateofbirth
+) AS s
+WHERE NOT EXISTS (
+    SELECT 1 FROM student WHERE id = s.id
+);
+
