@@ -1,3 +1,4 @@
+
 INSERT INTO student (id, name, dateofbirth)
 SELECT * FROM (
     SELECT 10009 AS id, 'Ranga' AS name, 'E1234567' AS dateofbirth
@@ -7,4 +8,5 @@ SELECT * FROM (
 WHERE NOT EXISTS (
     SELECT 1 FROM student WHERE id = s.id
 );
+
 
