@@ -1,5 +1,7 @@
 package com.studentapp.studentrecord;
 
+import java.time.LocalDate;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -9,12 +11,12 @@ public class Student {
     @Id
     private Long id; 
     private String name; 
-    private String dateofbirth; 
+    private LocalDate dateofbirth; 
 
     public Student() {
     }
 
-    public Student(Long id, String name, String dateofbirth) {
+    public Student(Long id, String name, LocalDate dateofbirth) {
         this.id = id;
         this.name = name;
         this.dateofbirth = dateofbirth;
@@ -37,11 +39,11 @@ public class Student {
         this.name = name;
     }
 
-    public String getDateOfBirth() {
+    public LocalDate getDateOfBirth() {
         return dateofbirth;
     }
 
-    public void setDateOfBirth(String dateofbirth) {
+    public void setDateOfBirth(LocalDate dateofbirth) {
         this.dateofbirth = dateofbirth;
     }
     

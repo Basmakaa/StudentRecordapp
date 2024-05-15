@@ -20,6 +20,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import java.time.LocalDate;
+
 @ContextConfiguration// Replace YourController with your actual controller class
 @AutoConfigureMockMvc
 @SpringBootTest
@@ -49,7 +51,7 @@ public class StudentResourceTests {
         Student student = new Student();
         student.setName("John Doe");
         student.setId((long) 10006);
-        student.setDateOfBirth("March 23");
+        student.setDateOfBirth(LocalDate.of(2001, 1, 23));
 
         // Mock the save method of studentRepository to return the student
         when(studentRepository.save(any(Student.class))).thenReturn(student);

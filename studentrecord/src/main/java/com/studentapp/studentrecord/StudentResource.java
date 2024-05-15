@@ -50,14 +50,14 @@ public class StudentResource {
     }
 
     @PutMapping("/students/{id}")
-    public ResponseEntity<Student> updateStudent(@RequestBody Student student, @PathVariable long id){
+    public ResponseEntity<Student> updateStudent(@RequestBody Student newstudent, @PathVariable long id){
         Optional<Student> o_student = studentRepository.findById(id);
 
             if (o_student.isEmpty())
                 throw new StudentNotFoundException(id);
             
-            student.setId(id);
-            studentRepository.save(student);
+            newstudent.setId(id);
+            studentRepository.save(newstudent);
             return ResponseEntity.noContent().build(); 
     }
 
