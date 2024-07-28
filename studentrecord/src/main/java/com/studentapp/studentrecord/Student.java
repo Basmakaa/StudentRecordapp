@@ -1,28 +1,28 @@
 package com.studentapp.studentrecord;
 
 import java.time.LocalDate;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity
 public class Student {
+
     @Id
-    private Long id; 
-    private String name; 
-    private LocalDate dateofbirth; 
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String name;
+    private LocalDate dateofbirth;
 
     public Student() {
     }
 
-    public Student(Long id, String name, LocalDate dateofbirth) {
-        this.id = id;
+    public Student(String name, LocalDate dateofbirth) {
         this.name = name;
         this.dateofbirth = dateofbirth;
     }
 
-    // Getters and setters
     public Long getId() {
         return id;
     }
@@ -46,5 +46,4 @@ public class Student {
     public void setDateOfBirth(LocalDate dateofbirth) {
         this.dateofbirth = dateofbirth;
     }
-    
-} 
+}

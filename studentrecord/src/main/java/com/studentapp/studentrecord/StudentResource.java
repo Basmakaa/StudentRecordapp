@@ -1,69 +1,67 @@
 package com.studentapp.studentrecord;
 
-import java.util.List;
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Optional;
 
 @RestController
+@RequestMapping("/students")
 public class StudentResource {
 
     @Autowired
     private StudentRepository studentRepository;
 
-    @GetMapping("/students")
+    @GetMapping
     public List<Student> retrieveAllStudents() {
         return studentRepository.findAll();
     }
 
-    @GetMapping("/students/{id}") 
-        public Student retrieveStudent(@PathVariable long id){
-            Optional<Student> student = studentRepository.findById(id);
+    @GetMapping("/{id}")
+    public ResponseEntity<Student> retrieveStudent(@PathVariable long id) {
+        Optional<Student> student = studentRepository.findById(id);
 
-            if (student.isEmpty())
-                throw new StudentNotFoundException(id);
-            
-            return student.get();
-
+        if (student.isEmpty()) {
+            throw new StudentNotFoundException(id);
         }
 
-    @DeleteMapping("/students/{id}") 
-    public void deleteStudent(@PathVariable long id){
+        return ResponseEntity.ok(student.get());
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteStudent(@PathVariable long id) {
+        Optional<Student> student = studentRepository.findById(id);
+
+        if (student.isEmpty()) {
+            throw new StudentNotFoundException(id);
+        }
+
         studentRepository.deleteById(id);
+        return ResponseEntity.noContent().build();
     }
 
-    @PostMapping("/students")
+    @PostMapping
     public ResponseEntity<Student> createStudent(@RequestBody Student student) {
-        Student savedstudent = studentRepository.save(student);
-
-        return new ResponseEntity<>(savedstudent, HttpStatus.CREATED);
-
+        if (student.getId() != null) {
+            throw new RuntimeException("New student cannot have an ID");
+        }
+        Student savedStudent = studentRepository.save(student);
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedStudent);
     }
 
-    @PutMapping("/students/{id}")
-    public ResponseEntity<Student> updateStudent(@RequestBody Student newstudent, @PathVariable long id){
+    @PutMapping("/{id}")
+    public ResponseEntity<Student> updateStudent(@RequestBody Student newStudent, @PathVariable long id) {
         Optional<Student> o_student = studentRepository.findById(id);
 
-            if (o_student.isEmpty())
-                throw new StudentNotFoundException(id);
-            
-            newstudent.setId(id);
-            studentRepository.save(newstudent);
-            return ResponseEntity.noContent().build(); 
+        if (o_student.isEmpty()) {
+            throw new StudentNotFoundException(id);
+        }
+
+        newStudent.setId(id);
+        Student updatedStudent = studentRepository.save(newStudent);
+        return ResponseEntity.ok(updatedStudent);
     }
-
-
-
-    
-
-    
 }
